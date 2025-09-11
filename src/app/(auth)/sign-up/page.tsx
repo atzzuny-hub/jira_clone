@@ -1,6 +1,10 @@
+'use client'
+
+import SignUpCard from "@/features/auth/components/sign-up-card"
+
 const SignUpPage = () => {
     return(
-        <div>회원가입 페이지</div>
+        <SignUpCard/>
     )
 }
 

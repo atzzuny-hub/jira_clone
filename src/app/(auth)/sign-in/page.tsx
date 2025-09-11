@@ -1,6 +1,10 @@
+'use client'
+
+import SignInCard from "@/features/auth/components/sign-in-card"
+
 const SignInPage = () => {
     return(
-        <div>로그인 페이지</div>
+        <SignInCard/>
     )
 }
 
