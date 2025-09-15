@@ -2,7 +2,6 @@ import {z} from 'zod'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from "@hookform/resolvers/zod"
 
-
 import {FcGoogle} from 'react-icons/fc'
 import {FaGithub} from 'react-icons/fa'
 
@@ -11,24 +10,20 @@ import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
+import { loginSchema } from '../schemas'
 
-// 회원가입양식 스키마 정의
-const formSchema = z.object({
-    email: z.string().email(),
-    password: z.string().min(1, "비밀번호를 입력하세요")
-})
 
 export const SignInCard = () => {
  
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver:zodResolver(formSchema), // Zod 스키마를 React Hook Form에 연결
+    const form = useForm<z.infer<typeof loginSchema>>({
+        resolver:zodResolver(loginSchema), // Zod 스키마를 React Hook Form에 연결
         defaultValues:{
             email:'',
             password: ''
         }
     })
 
-    const onSubmit = (values: z.infer<typeof formSchema>)=>{
+    const onSubmit = (values: z.infer<typeof loginSchema>)=>{
         console.log(values);        
     }
 
