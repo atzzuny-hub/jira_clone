@@ -1,20 +1,24 @@
 import {Hono} from 'hono'
 import {handle} from 'hono/vercel'
 
+import auth from '@/features/auth/server/route'
 const app = new Hono().basePath("/api");
 
-// 기본 라우트
-app.get('/hello', (c) => {
-    return c.json({ hello: "world" })
-})
+const routes = app
+    .route("/auth", auth)
 
-// 동적 라우트
-app.get('/project/:projectId', (c) => {
-    const projectId = c.req.param('projectId')
-    return c.json({ 
-        project: projectId,
-        message: `프로젝트 ${projectId} 정보`
-    })
-})
 
+// ⚠️ 모든 HTTP 메서드 내보내기 (POST 요청 처리용)
 export const GET = handle(app)
+export const POST = handle(app)
+export const PUT = handle(app)
+export const DELETE = handle(app)
+
+// 🔥 RPC 타입 - 클라이언트에서 타입 안전하게 API 호출 가능
+export type AppType = typeof routes
+
+
+
+
+
+

@@ -11,12 +11,15 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { loginSchema } from '../schemas'
+import { useLogin } from '../api/use-login'
 
 
 export const SignInCard = () => {
+
+    const { mutate } = useLogin()
  
     const form = useForm<z.infer<typeof loginSchema>>({
-        resolver:zodResolver(loginSchema), // Zod 스키마를 React Hook Form에 연결
+        resolver:zodResolver(loginSchema), 
         defaultValues:{
             email:'',
             password: ''
@@ -24,6 +27,7 @@ export const SignInCard = () => {
     })
 
     const onSubmit = (values: z.infer<typeof loginSchema>)=>{
+        mutate({json : values})
         console.log(values);        
     }
 
@@ -42,14 +46,6 @@ export const SignInCard = () => {
             <CardContent className="p-7">
                 <Form {...form}>
                     <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
-                        {/* <Input
-                            required
-                            type="email"
-                            value={''}
-                            onChange={()=>{}}
-                            placeholder="Enter email address"
-                            disabled={false}
-                        /> */}
                         <FormField
                             name='email'
                             render={({field}) => (
@@ -65,25 +61,12 @@ export const SignInCard = () => {
                                 </FormItem>
                             )}
                         />
-                        {/* <Input
-                            required
-                            type=" "
-                            value={''}
-                            onChange={()=>{}}
-                            placeholder="Enter password"
-                            disabled={false}
-                            min={8}
-                            max={256}
-                        /> */}
                         <FormField
                             name='password'
                             render={({field}) => (
                                 <FormItem>
                                     <FormControl>
                                         <Input
-                                            // required
-                                            // value={''}
-                                            // onChange={()=>{}}
                                             {...field}
                                             type="password"
                                             placeholder="Enter password"                                        
