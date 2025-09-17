@@ -12,8 +12,12 @@ import { Input } from "@/components/ui/input"
 import Link from 'next/link'
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form"
 import { registerSchema } from '../schemas'
+import { useRegister } from '../api/use-register'
 
 export const SignUpCard = () => {
+
+
+    const { mutate } = useRegister()
 
     const form = useForm<z.infer<typeof registerSchema>>({
         resolver:zodResolver(registerSchema),
@@ -25,6 +29,7 @@ export const SignUpCard = () => {
     })
 
     const onSubmit = (values: z.infer<typeof registerSchema>)=>{
+        mutate({json:values})
         console.log(values);        
     }
     
