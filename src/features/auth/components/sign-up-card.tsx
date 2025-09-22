@@ -1,3 +1,5 @@
+'use client'
+
 import {z} from 'zod'
 import {useForm} from 'react-hook-form'
 import {zodResolver} from "@hookform/resolvers/zod"
@@ -112,7 +114,7 @@ export const SignUpCard = () => {
                             disabled={false} 
                             size={'lg'}
                         >
-                            Login
+                            Register
                         </Button>
                         <div className="px-7">
                             <DottedSeparator/>

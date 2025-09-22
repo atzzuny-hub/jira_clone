@@ -1,12 +1,20 @@
+import { redirect } from "next/navigation";
 
+import { getCurrent } from "@/features/auth/actions";
 import { UserButton } from "@/features/auth/components/user-button";
 
+export default async function Home() {
 
-export default function Home() {
+	const user = await getCurrent();
 
-  return (
-	<div style={{padding:20}}>
-		<UserButton/>
-	</div>
-  );
+	console.log(user);
+	
+
+	if(!user) redirect("/sign-in")
+  
+	return (
+		<div style={{padding:20}}>
+			<UserButton/>
+		</div>
+	);	
 }
