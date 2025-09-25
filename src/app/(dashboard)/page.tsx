@@ -14,7 +14,7 @@ export default async function Home() {
   
 	return (
 		<div style={{padding:20}}>
-			<UserButton/>
+			홈페이지
 		</div>
 	);	
 }

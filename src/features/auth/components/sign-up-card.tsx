@@ -19,7 +19,7 @@ import { useRegister } from '../api/use-register'
 export const SignUpCard = () => {
 
 
-    const { mutate } = useRegister()
+    const { mutate, isPending } = useRegister()
 
     const form = useForm<z.infer<typeof registerSchema>>({
         resolver:zodResolver(registerSchema),
@@ -68,6 +68,7 @@ export const SignUpCard = () => {
                                     <FormControl>
                                         <Input
                                             {...field}
+                                            disabled={isPending}
                                             type="text"
                                             placeholder="Enter your name"
                                         />
@@ -83,6 +84,7 @@ export const SignUpCard = () => {
                                     <FormControl>
                                         <Input
                                             {...field}
+                                            disabled={isPending}
                                             type="email"
                                             placeholder="Enter email address"                                        
                                         />
@@ -97,10 +99,8 @@ export const SignUpCard = () => {
                                 <FormItem>
                                     <FormControl>
                                         <Input
-                                            // required
-                                            // value={''}
-                                            // onChange={()=>{}}
                                             {...field}
+                                            disabled={isPending}
                                             type="password"
                                             placeholder="Enter password"                                        
                                         />
@@ -111,7 +111,7 @@ export const SignUpCard = () => {
                         />
                         <Button 
                             className="w-full" 
-                            disabled={false} 
+                            disabled={isPending} 
                             size={'lg'}
                         >
                             Register
