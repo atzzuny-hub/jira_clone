@@ -1,4 +1,4 @@
-import { InferRequestType, InferResponseType } from "hono";
+import { InferResponseType } from "hono";
 import { client } from "@/lib/rpc";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -29,6 +29,7 @@ export const useLogout = () => {
             toast.success("Logged out")
             router.refresh()
             queryClient.invalidateQueries({queryKey :["current"]}) // 데이터를 강제로 "무효화"시켜서 다시 가져온다.
+            queryClient.invalidateQueries({queryKey :["workspaces"]}) 
             // window.location.reload()
         },
         onError:()=>{
