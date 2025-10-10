@@ -15,6 +15,7 @@ import DottedSeparator from "@/components/dottedSeparator";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import Image from "next/image";
 import { ImageIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface CreateWorkspaceFormProps{
     onCancel?: () => void;
@@ -152,6 +153,8 @@ export const CreateWorkspaceForm = ({onCancel} : CreateWorkspaceFormProps) =>{
                                 variant='secondary'
                                 onClick={onCancel}
                                 disabled={isPending}
+                                className={cn(!onCancel && "invisible")}
+                                // onCancel prop이 전달되지 않으면 버튼을 invisible 처리하여 레이아웃은 유지하되 시각적으로 숨김
                             >
                                 Cancel
                             </Button>

@@ -1,5 +1,6 @@
-import { Navbar } from "@/features/auth/components/navbar"
-import { Sidebar } from "@/features/auth/components/sidebar"
+
+import { Navbar } from "@/components/navbar"
+import { Sidebar } from "@/components/sidebar"
 import { CreateWorkspaceModal } from "@/features/workspaces/component/create-workspace-modal"
 
 interface DashboardLayoutProps {
