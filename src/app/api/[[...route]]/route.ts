@@ -16,6 +16,7 @@ const routes = app
 export const GET = handle(routes)
 export const POST = handle(routes)
 export const PATCH = handle(routes)
+export const DELETE = handle(routes)  // ✅ DELETE 메서드 추가
 
 // 🔥 RPC 타입 - 클라이언트에서 타입 안전하게 API 호출 가능
 export type AppType = typeof routes

@@ -162,13 +162,50 @@ const app = new Hono()
                 DATABASE_ID,
                 WORKSPACES_ID,
                 workspaceId,
+                // {
+                //     name,
+                //     imageUrl: uploadedImageUrl,
+                // }
                 {
-                    name,
-                    imageUrl: uploadedImageUrl,
+                    ...(name && { name }), // name이 있을 때만 포함
+                    ...(uploadedImageUrl && { imageUrl: uploadedImageUrl }), // imageUrl이 있을 때만 포함
                 }
             );
 
             return c.json({data:workspace})
+        }
+    )
+
+    .delete(
+        "/:workspaceId",
+        sessionMiddleware,
+        async (c) => {
+            const databases = c.get("databases");
+            const user = c.get("user");
+
+            const {workspaceId} = c.req.param();
+
+            // 1. 권한 확인
+            const member = await getMember({
+                databases,
+                workspaceId,
+                userId: user.$id,
+            })
+
+            if(!member || member.role !== MemberRole.ADMIN){
+                return c.json({error:"Unauthorized"}, 401)
+            }
+            
+            // TODO: Delete members, projects, and tasks
+            
+            // 2. 워크스페이스 삭제
+            await databases.deleteDocument(
+                DATABASE_ID,
+                WORKSPACES_ID,
+                workspaceId,
+            )
+
+            return c.json({data:{ $id: workspaceId}});
         }
     )
 
