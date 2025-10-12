@@ -1,3 +1,4 @@
+import {z} from 'zod'
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { createWorkspaceSchema, updateWorkspaceSchema } from "../schemas";
@@ -7,6 +8,7 @@ import { ID, Query } from "node-appwrite";
 import { MemberRole } from "@/features/members/type";
 import { generateInviteCode } from "@/lib/utils";
 import { getMember } from "@/features/members/utils";
+import { Workspace } from '../type';
 
 const app = new Hono()
     .get(
@@ -91,7 +93,7 @@ const app = new Hono()
                     name,
                     userId:user.$id,
                     imageUrl: uploadedImageUrl,
-                    inviteCode: generateInviteCode(10)
+                    inviteCode: generateInviteCode(6)
                 }
             );
 
@@ -206,6 +208,89 @@ const app = new Hono()
             )
 
             return c.json({data:{ $id: workspaceId}});
+        }
+    )
+
+    .post(
+        "/:workspaceId/reset-invite-code",
+        sessionMiddleware,
+        async (c) => {
+            const databases = c.get("databases");
+            const user = c.get("user");
+
+            const {workspaceId} = c.req.param();
+
+            const member = await getMember({
+                databases,
+                workspaceId,
+                userId: user.$id,
+            })
+
+            if(!member || member.role !== MemberRole.ADMIN){
+                return c.json({error:"Unauthorized"}, 401)
+            }
+            
+            const workspace = await databases.updateDocument(
+                DATABASE_ID,
+                WORKSPACES_ID,
+                workspaceId,
+                {
+                    inviteCode: generateInviteCode(6)
+                }
+            )
+
+            return c.json({data:workspace});
+        }
+    )
+
+    .post(
+        "/:workspaceId/join",  // ← /api/workspaces/[id]/join 엔드포인트
+        sessionMiddleware,
+        zValidator("json", z.object({code : z.string()})),
+        async (c) => {
+
+
+            const {workspaceId} = c.req.param()
+            const {code} = c.req.valid("json")
+
+            const databases = c.get("databases")
+            const user = c.get("user")
+
+            // 1. 이미 멤버인지 확인
+            const member = await getMember({
+                databases,
+                workspaceId,
+                userId: user.$id,
+            });
+
+            if(member){
+                return c.json({error: "Already a member"}, 400);  // 이미 멤버면 거절
+            }
+
+            // 2. 초대 코드 검증
+            const workspace = await databases.getDocument<Workspace>(
+                DATABASE_ID,
+                WORKSPACES_ID,
+                workspaceId
+            )
+
+            if(workspace.inviteCode !== code){
+                return c.json({error:"Invalid invite code"}, 400);  // 코드 불일치면 거절
+            }
+
+            // 3. 멤버 추가
+            await databases.createDocument(
+                DATABASE_ID,
+                MEMBERS_ID,
+                ID.unique(),
+                {
+                    workspaceId,
+                    userId: user.$id,
+                    role: MemberRole.MEMBER,  // ← 새 멤버는 일반 사용자로 추가
+                }
+            )
+
+            return c.json({data:workspace})
         }
     )
 
