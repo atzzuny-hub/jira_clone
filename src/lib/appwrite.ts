@@ -43,6 +43,9 @@ export async function  createAdminClient() {
         return{
             get account() {
                 return new Account(clinet)
+            },
+            get users(){
+              return new Users(clinet)
             }
         }
 }
