@@ -163,7 +163,7 @@ const app = new Hono()
                 databases,
                 workspaceId,
                 userId: user.$id
-            });
+            }); 
 
             if(!member){
                 return c.json({error: "Unauthorized"}, 401)
