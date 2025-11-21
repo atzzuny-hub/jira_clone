@@ -1,7 +1,7 @@
 import { Models } from "node-appwrite";
 
 export enum TaskStatus{
-    BACKLOT = "BACKLOT", 
+    BACKLOG = "BACKLOG", 
     TODO = "TODO", 
     IN_PROGRESS = "IN_PROGRESS", 
     IN_PREVIEW = "IN_PREVIEW",  
@@ -11,6 +11,7 @@ export enum TaskStatus{
 export type Task = Models.Document & {
     name: string;
     status: TaskStatus;
+    workspaceId: string;
     assigneeId: string;
     projectId: string;
     position: number;

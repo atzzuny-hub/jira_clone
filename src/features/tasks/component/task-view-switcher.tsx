@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import DottedSeparator from "@/components/dottedSeparator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
-import { useGetTasks } from "../api/use-get-task"
+import { useGetTasks } from "../api/use-get-tasks"
 import { useCreateTaskModal } from "../hooks/use-create-task-modal"
 import { DataFilters } from "./data-filters"
 import { useTaskFilters } from "../hooks/use-task-filters"

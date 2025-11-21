@@ -66,7 +66,7 @@ export const DataFilters = ({hideProjectFilter}: DataFiltersProps) => {
                 <SelectContent className="bg-white">
                     <SelectItem value="al">All statuses</SelectItem>
                     <SelectSeparator/>
-                    <SelectItem value={TaskStatus.BACKLOT}>Backlog</SelectItem>
+                    <SelectItem value={TaskStatus.BACKLOG}>Backlog</SelectItem>
                     <SelectItem value={TaskStatus.IN_PROGRESS}>In Progress</SelectItem>
                     <SelectItem value={TaskStatus.IN_PREVIEW}>In Review</SelectItem>
                     <SelectItem value={TaskStatus.TODO}>Todo</SelectItem>
