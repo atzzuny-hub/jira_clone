@@ -9,11 +9,12 @@ import{
     subMonths,
 } from "date-fns"
 import { enUS } from "date-fns/locale";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar"
+
 
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import './data-calendar.css'
 
-import { Calendar, dateFnsLocalizer } from "react-big-calendar"
 
 import { EventCard } from "./event-card";
 
@@ -81,6 +82,9 @@ export const DataCalendar = ({data}:DataCalendarProps) => {
         status: task.status,
         id: task.$id
     }))
+
+    console.log('data', data);
+    
 
     const handleNavigate = (action: "PREV" | "NEXT" | "TODAY")=>{
         if(action === "PREV"){

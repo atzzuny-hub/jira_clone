@@ -33,15 +33,15 @@ export const EventCard = ({
     id,
 }:EventCardProps) => {
 
-    const workspaceId = useWorkspaceId()
     const router = useRouter()
+    const workspaceId = useWorkspaceId()
 
     const onClick = (
         e:React.MouseEvent<HTMLDivElement>
     ) => {
         e.stopPropagation();
 
-        router.push(`workspaces/${workspaceId}/tasks/${id}`)
+        router.push(`/workspaces/${workspaceId}/tasks/${id}`);
     }
 
     return(
@@ -53,9 +53,10 @@ export const EventCard = ({
                 <p>{title}</p>
                 <div className="flex items-center gap-x-1">
                     <MemberAvatar
-                        // name={assignee?.name}
-                        name={project?.name}
+                        name={assignee?.name}
+                        // name={project?.name}
                     />
+                    
                     <div className="size-1 rounded-full bg-neutral-300"/>
                     <ProjectAvatar 
                         name={project?.name}        

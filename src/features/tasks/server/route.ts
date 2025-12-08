@@ -1,4 +1,5 @@
 
+import z from "zod";
 import { Hono } from "hono";
 import { ID, Query } from "node-appwrite";
 import { zValidator } from "@hono/zod-validator";
@@ -10,7 +11,6 @@ import { DATABASE_ID, MEMBERS_ID, PROJECTS_ID, TASKS_ID } from "@/config";
 import { sessionMiddleware } from "@/lib/session-middleware";
 
 import { createTaskSchema } from "../schemas";
-import z, { positive } from "zod";
 import { Task, TaskStatus } from "../types";
 import { createAdminClient } from "@/lib/appwrite";
 
@@ -139,6 +139,7 @@ const app = new Hono()
                 assigneeIds.length > 0 ? [Query.contains("$id", assigneeIds)] : []
             )
 
+            
             const assignees = await Promise.all(
                 members.documents.map( async (member) => {
                     const user = await users.get(member.userId);
@@ -166,6 +167,7 @@ const app = new Hono()
                     assignee
                 }
             })
+           
 
             return c.json({
                 data:{
