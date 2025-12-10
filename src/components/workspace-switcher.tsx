@@ -1,7 +1,7 @@
 "use client"
 
 import {Select, SelectTrigger, SelectValue, SelectContent, SelectItem} from '@/components/ui/select'
-import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspace"
+import { useGetWorkspaces } from "@/features/workspaces/api/use-get-workspaces"
 import { WorkspaceAvatar } from '@/features/workspaces/component/workspace-avatar';
 import { useCreateWorkspaceModal } from '@/features/workspaces/hooks/use-create-workspace-modal';
 import { useWorkspaceId } from '@/features/workspaces/hooks/use-workspace-id';

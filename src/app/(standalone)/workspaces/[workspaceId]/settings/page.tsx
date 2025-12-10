@@ -1,34 +1,15 @@
 
 import { getCurrent } from "@/features/auth/queries";
-import { getWorkspace } from "@/features/workspaces/queries";
-import { EditWorkspaceForm } from "@/features/workspaces/component/edit-workspace-form";
 import { redirect } from "next/navigation";
-
-interface WorkspaceIdSettingsPageProps{
-    params:{
-        workspaceId:string
-    }
-}
+import { WorkspaceIdSettingsClient } from "./client";
 
 
-const WorkspaceIdSettingsPage = async ({params}:WorkspaceIdSettingsPageProps) => {
+const WorkspaceIdSettingsPage = async () => {
 
     const user = await getCurrent();
     if(!user) redirect('sign-in');
 
-    const initialValues = await getWorkspace({workspaceId: params.workspaceId})
-
-    // 삭제
-    // if(!initialValues){
-    //     redirect(`/workspaces/${params.workspaceId}`)
-    // }
-
-
-    return(
-        <div className="w-full lg:max-w-xl">
-            <EditWorkspaceForm initialValues={initialValues}/>
-        </div>
-    )
+    return <WorkspaceIdSettingsClient/>
 }
 
 export default WorkspaceIdSettingsPage

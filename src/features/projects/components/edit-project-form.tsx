@@ -60,13 +60,14 @@ export const EditProjectForm = ({onCancel, initialValues} : EditProjectFormProps
             form:finalValues,
             param: {projectId: initialValues.$id}
 
-        }, {
-            onSuccess:({data})=>{
-                form.reset();
-                // 삭제
-                // router.push(`/workspaces/${data.$id}`)
-            }
-        })
+        } 
+        // {
+        //     onSuccess:({data})=>{
+        //         form.reset();
+        //         // router.push(`/workspaces/${data.$id}`)
+        //     }
+        // }
+        )
     }
 
     const handleImageChange = (e:React.ChangeEvent<HTMLInputElement>) => {

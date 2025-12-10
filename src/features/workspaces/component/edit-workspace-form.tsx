@@ -63,13 +63,12 @@ export const EditWorkspaceForm = ({onCancel, initialValues} : EditWorkspaceFormP
             form:finalValues,
             param: {workspaceId: initialValues.$id}
 
-        }, {
-            onSuccess:({data})=>{
-                form.reset();
-                // 삭제
-                // router.push(`/workspaces/${data.$id}`)
-            }
-        })
+        }
+        // ,{
+        //     onSuccess:({data})=>{
+        //         form.reset();              
+        // }}
+        )
     }
 
     const handleImageChange = (e:React.ChangeEvent<HTMLInputElement>) => {

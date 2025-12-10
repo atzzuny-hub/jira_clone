@@ -40,50 +40,50 @@ export const getWorkspaces = async () => {
     return workspace
 }
 
-interface GetWorkspaceProps{
-    workspaceId:string
-}
+// interface GetWorkspaceProps{
+//     workspaceId:string
+// }
 
-export const getWorkspace = async ({workspaceId}:GetWorkspaceProps) => {
+// export const getWorkspace = async ({workspaceId}:GetWorkspaceProps) => {
 
-    const {databases, account} = await createSessionClient();
+//     const {databases, account} = await createSessionClient();
 
-    const user = await account.get();
+//     const user = await account.get();
 
-    const member = await getMember({
-        databases,
-        userId:user.$id,
-        workspaceId
-    })
+//     const member = await getMember({
+//         databases,
+//         userId:user.$id,
+//         workspaceId
+//     })
 
-    if(!member){
-        throw new Error("Unauthorized")
-    }
+//     if(!member){
+//         throw new Error("Unauthorized")
+//     }
 
-    const workspace = await databases.getDocument<Workspace>(
-        DATABASE_ID,
-        WORKSPACES_ID,
-        workspaceId
-    );
+//     const workspace = await databases.getDocument<Workspace>(
+//         DATABASE_ID,
+//         WORKSPACES_ID, 
+//         workspaceId
+//     );
 
-    return workspace
-}
+//     return workspace
+// }
 
-interface GetWorkspaceInfoProps{
-    workspaceId:string
-}
+// interface GetWorkspaceInfoProps{
+//     workspaceId:string
+// }
 
-export const getWorkspaceInfo = async ({workspaceId}:GetWorkspaceInfoProps) => {
+// export const getWorkspaceInfo = async ({workspaceId}:GetWorkspaceInfoProps) => {
 
-    const {databases} = await createSessionClient();     
+//     const {databases} = await createSessionClient();     
 
-    const workspace = await databases.getDocument<Workspace>(
-        DATABASE_ID,
-        WORKSPACES_ID,
-        workspaceId
-    )
+//     const workspace = await databases.getDocument<Workspace>(
+//         DATABASE_ID,
+//         WORKSPACES_ID,
+//         workspaceId
+//     )
 
-    return {
-        name: workspace.name
-    }
-}
+//     return {
+//         name: workspace.name
+//     }
+// }
