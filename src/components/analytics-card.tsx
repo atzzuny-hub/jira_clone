@@ -16,8 +16,8 @@ export const AnalyticsCard = ({
     increaseValue
 }:AnalyticsCardProps) => {
 
-    const iconColor = variant === "up"? "text-emerald-500" :"text-red=500"
-    const increaseValueColor = variant === "up" ? "text-emerald-500" :"text-red=500"
+    const iconColor = variant === "up"? "text-emerald-500" :"text-red-500"
+    const increaseValueColor = variant === "up" ? "text-emerald-500" :"text-red-500"
     const Icon = variant === "up" ? FaCaretUp : FaCaretDown
 
     return(
