@@ -140,26 +140,53 @@ const app = new Hono()
             )
 
             
-            const assignees = await Promise.all(
-                members.documents.map( async (member) => {
-                    const user = await users.get(member.userId);
+            // const assignees = await Promise.all(
+            //     members.documents.map( async (member) => {
+            //         const user = await users.get(member.userId);
 
-                    return{
-                        ...member,
-                        name:user.name,
-                        email:user.email
+            //         return{
+            //             ...member,
+            //             name:user.name,
+            //             email:user.email
+            //         }
+            //     })
+            // )
+
+            // ✅ assignee 정보 가져오기 (userId가 있는 경우만, 에러 핸들링 추가)
+            const assignees = await Promise.all(
+                members.documents.map(async (member) => {
+                    // userId가 없으면 null 반환
+                    if (!member.userId) {
+                        return null;
+                    }
+
+                    try {
+                        const user = await users.get(member.userId);
+                        return user;
+                    } catch (error) {
+                        // 사용자를 찾을 수 없는 경우/에러 발생 시 null 반환
+                        console.error(`Failed to fetch user ${member.userId}:`, error);
+                        return null;
                     }
                 })
-            )
+            );
+
+            // null이 아닌 assignee만 필터링
+            const validAssignees = assignees.filter((assignee) => assignee !== null);
+
 
             const populatedTasks = tasks.documents.map((task)=>{
                 const project = projects.documents.find(
                     (project) => project.$id === task.projectId,
                 )
 
-                const assignee = assignees.find(
-                    (assignee) => assignee.$id === task.assigneeId,
-                )
+                // const assignee = assignees.find(
+                //     (assignee) => assignee.$id === task.assigneeId,
+                // )
+                // 유효한 할당자 리스트(validAssignees)에서 찾음
+                const assignee = member 
+                    ? validAssignees.find((assignee) => assignee.$id === member.userId)
+                    : null;
 
                 return {
                     ...task,

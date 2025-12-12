@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import { useGetTasks } from "../api/use-get-tasks"
 import { useCreateTaskModal } from "../hooks/use-create-task-modal"
+import { useProjectId } from "@/features/projects/hooks/use-project-id"
 import { DataFilters } from "./data-filters"
 import { useTaskFilters } from "../hooks/use-task-filters"
 import { DataTable } from "./data-table"
@@ -38,7 +39,8 @@ export const TaskViewSwitcher = ({hideProjectFilter}:TaskViewSwitcherProps) => {
         defaultValue: "table"
     })
  
-    const workspaceId = useWorkspaceId()   
+    const workspaceId = useWorkspaceId()  
+    const paramProjectId = useProjectId() 
     const {open} = useCreateTaskModal();
 
     const {mutate: bulkUpdate} = useBulkUpdateTask()
@@ -50,7 +52,7 @@ export const TaskViewSwitcher = ({hideProjectFilter}:TaskViewSwitcherProps) => {
         workspaceId,
         status,
         assigneeId,
-        projectId,
+        projectId: paramProjectId || projectId,
         dueDate
     })
 
