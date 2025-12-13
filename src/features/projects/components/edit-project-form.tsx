@@ -59,8 +59,7 @@ export const EditProjectForm = ({onCancel, initialValues} : EditProjectFormProps
         mutate({
             form:finalValues,
             param: {projectId: initialValues.$id}
-
-        } 
+        },
         // {
         //     onSuccess:({data})=>{
         //         form.reset();
@@ -257,7 +256,7 @@ export const EditProjectForm = ({onCancel, initialValues} : EditProjectFormProps
                             size="sm"  
                             variant="destructive"
                             type="button"
-                            disabled={isPending}    
+                            disabled={isPending || isDeletingProject}    
                             onClick={handleDelete}                
                         >
                             Delete Project

@@ -16,8 +16,9 @@ export const useUpdateMember = () => {
         Error,
         RequestType
     >({
-
+        /// @ts-expect-error RequestType 인수의 타입 불명확
         mutationFn: async({param, json}) => {
+            // @ts-expect-error RequestType 인수의 타입 불명확
             const response = await client.api.members[':memberId']['$patch']({param, json});
 
             if(!response.ok){

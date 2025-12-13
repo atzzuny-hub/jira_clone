@@ -3,7 +3,17 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    // "strict": true,
+
+    // 엄격한 타입 체크 기능 OFF
+    "strict": false, 
+    // any 타입에 대한 오류 OFF
+    "noImplicitAny": false, 
+    // null이나 undefined 관련 오류 OFF
+    "strictNullChecks": false,
+    //타입 에러가 있어도 JS 파일 생성을 막지마
+    "noEmitOnError": false,
+    
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",

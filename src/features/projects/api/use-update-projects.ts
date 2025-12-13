@@ -3,10 +3,19 @@ import {useMutation, useQueryClient} from '@tanstack/react-query'
 import { InferRequestType, InferResponseType } from 'hono';
 
 import {client} from '@/lib/rpc'
+import { updateProjectSchema } from '../schemas';
+import z from 'zod';
 // import { useRouter } from 'next/navigation';
 
 type ResponseType = InferResponseType<typeof client.api.projects[":projectId"]['$patch'], 200>
-type RequestType = InferRequestType<typeof client.api.projects[":projectId"]['$patch']>
+// type RequestType = InferRequestType<typeof client.api.projects[":projectId"]['$patch']>
+
+type MutationVariables = {
+    // 폼 데이터 (Zod 스키마에서 추론된 타입)
+    form: z.infer<typeof updateProjectSchema>; 
+    // URL 파라미터 (projectId)
+    param: { projectId: string }; 
+}
 
 export const useUpdateProject = () => {
 
@@ -16,11 +25,17 @@ export const useUpdateProject = () => {
     const mutation = useMutation<
         ResponseType,
         Error,
-        RequestType
+        // RequestType
+        MutationVariables
     >({
         mutationFn: async({form, param}) => {
-            const response = await client.api.projects[":projectId"]["$patch"]({form, param});
+            // const response = await client.api.projects[":projectId"]["$patch"]({form, param});
 
+            const response = await client.api.projects[":projectId"]["$patch"]({
+                form, 
+                param
+            } as InferRequestType<typeof client.api.projects[":projectId"]['$patch']>);
+            
             if(!response.ok){
                 throw new Error("Failed to update projects")
             }

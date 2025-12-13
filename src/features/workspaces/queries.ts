@@ -1,12 +1,9 @@
 "use server"
 
-import { cookies } from 'next/headers'
-import { Client, Databases, Query, Account } from 'node-appwrite'
 
-import { AUTH_COOKIE } from '@/features/auth/constants'
+import {  Query } from 'node-appwrite'
+
 import { DATABASE_ID, MEMBERS_ID, WORKSPACES_ID } from '@/config'
-import { Workspace } from './type'
-import { getMember } from '../members/utils'
 import { createSessionClient } from '@/lib/appwrite'
 
 export const getWorkspaces = async () => {
