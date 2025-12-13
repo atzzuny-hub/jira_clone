@@ -36,7 +36,6 @@ const app = new Hono()
                 [Query.equal("workspaceId", workspaceId)]
             )
 
-            // ✅ createAdminClient를 여기서 호출
             const {users} = await createAdminClient();
             
             const populatedMembers = await Promise.all(
@@ -46,9 +45,7 @@ const app = new Hono()
 
                     return {
                         ...member,
-                        // name: user.name,
-                        // email: user.email
-                        name: userInfo.name,      // ✅ 해당 멤버의 실제 이름
+                        name: userInfo.name || userInfo.email,      // ✅ 해당 멤버의 실제 이름
                         email: userInfo.email     // ✅ 해당 멤버의 실제 이메일
                     }
                 })

@@ -7,6 +7,8 @@ import {zodResolver} from "@hookform/resolvers/zod"
 import {FcGoogle} from 'react-icons/fc'
 import {FaGithub} from 'react-icons/fa'
 
+import {signUpWithGithub} from '@/lib/oauth'
+
 import DottedSeparator from "@/components/dottedSeparator"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
@@ -91,7 +93,7 @@ export const SignInCard = () => {
                             <DottedSeparator/>
                         </div>
                         <CardContent className="p-7 flex flex-col gap-y-4">
-                            <Button
+                            <Button                                
                                 disabled={false}
                                 variant={"secondary"}
                                 size={'lg'}
@@ -101,6 +103,7 @@ export const SignInCard = () => {
                                 Login width Google
                             </Button>
                             <Button
+                                onClick={()=>signUpWithGithub()}
                                 disabled={false}
                                 variant={"secondary"}
                                 size={'lg'}
