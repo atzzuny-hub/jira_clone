@@ -30,7 +30,8 @@ export const KanbanCard = ({task}:KanbanCardProps) => {
 			{/* 담당자 & 마감일 */}
             <div className="flex items-center gap-x-1.5">
                 <MemberAvatar
-                    name={task.assignee.name}
+                    // name={task.assignee.name}
+                    name={task.project.name}
                     fallbackClassName="text-[10px]"
                 /> 
                 <div className="size-1 rounded-full bg-neutral-300"/>
